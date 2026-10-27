@@ -1,0 +1,90 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>Uber App</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="login-container">
+    <div class="brand-header">
+      <h1>UBER</h1>
+      <p>Inicia sesión para continuar</p>
+    </div>
+
+    <ion-card class="login-card">
+      <ion-card-header>
+        <ion-card-title>Bienvenido</ion-card-title>
+        <ion-card-subtitle>Ingresa tu correo o teléfono</ion-card-subtitle>
+      </ion-card-header>
+
+      <ion-card-content>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <!-- Campo Login (Correo o Teléfono) -->
+          <ion-item fill="outline" class="custom-input">
+            <ion-label position="floating">Correo o Teléfono</ion-label>
+            <ion-input class="entris"
+              formControlName="login"
+              type="text"
+              placeholder="cliente@uber.com o 3001234567"
+              autocomplete="username"
+            ></ion-input>
+          </ion-item>
+          @if (loginForm.get('login')?.touched && loginForm.get('login')?.invalid) {
+            <ion-text color="danger">
+              <p class="ion-no-margin ion-padding-start" style="font-size: 0.8rem;">
+                Ingresa tu correo electrónico o teléfono.
+              </p>
+            </ion-text>
+          }
+
+          <!-- Campo Contraseña -->
+          <ion-item fill="outline" class="custom-input">
+            <ion-label position="floating">Contraseña</ion-label>
+            <ion-input class="entris"
+              formControlName="password"
+              type="password"
+              placeholder="••••••••"
+              autocomplete="current-password"
+            ></ion-input>
+          </ion-item>
+          @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) {
+            <ion-text color="danger">
+              <p class="ion-no-margin ion-padding-start" style="font-size: 0.8rem;">
+                La contraseña es obligatoria.
+              </p>
+            </ion-text>
+          }
+
+          <!-- Botón de Envío -->
+          <div class="actions">
+            <ion-button
+              expand="block"
+              type="submit"
+              [disabled]="loginForm.invalid || loading"
+              shape="round"
+            >
+              @if (loading) {
+                <ion-spinner name="crescent"></ion-spinner>
+              } @else {
+                Iniciar Sesión
+              }
+            </ion-button>
+          </div>
+        </form>
+
+        <!-- Accesos directos a Registro -->
+        <div class="register-links">
+          <p>¿No tienes cuenta?</p>
+          <ion-button
+            fill="clear"
+            size="small"
+            expand="block"
+            routerLink="/register-client"
+          >
+            Registrarse como Pasajero (Cliente)
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
